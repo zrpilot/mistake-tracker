@@ -10,242 +10,210 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0f0f0f;
-    --surface: #1a1a1a;
-    --surface2: #242424;
-    --border: rgba(255,255,255,0.08);
-    --border2: rgba(255,255,255,0.14);
-    --text: #f0ede8;
-    --muted: #888;
-    --dim: #555;
-    --accent: #e8c97a;
-    --danger: #e06060;
-    --mono: 'DM Mono', monospace;
-    --sans: 'Sora', sans-serif;
-    --radius: 14px;
-    --radius-sm: 8px;
+    --bg: #0f0f0f; --surface: #1a1a1a; --surface2: #242424;
+    --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.14);
+    --text: #f0ede8; --muted: #888; --dim: #555;
+    --accent: #e8c97a; --danger: #e06060; --safe: #6ab187;
+    --mono: 'DM Mono', monospace; --sans: 'Sora', sans-serif;
+    --radius: 14px; --radius-sm: 8px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--sans); overflow-x: hidden; }
   body { display: flex; flex-direction: column; }
 
-  /* ── SCREENS ── */
   .screen { display: none; flex-direction: column; height: 100%; }
   .screen.active { display: flex; }
 
-  /* ── HEADER ── */
   .header {
     background: var(--surface); border-bottom: 1px solid var(--border);
     padding: 16px 20px 14px; position: sticky; top: 0; z-index: 100;
     display: flex; align-items: center; gap: 12px;
   }
-  .btn-back {
-    background: none; border: none; color: var(--accent); font-size: 22px;
-    cursor: pointer; padding: 0; display: flex; align-items: center; flex-shrink: 0;
-  }
+  .btn-back { background: none; border: none; color: var(--accent); font-size: 26px; cursor: pointer; padding: 0; line-height: 1; flex-shrink: 0; }
   .header-titles { flex: 1; min-width: 0; }
   .app-title { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--accent); }
   .header-sub { font-size: 11px; color: var(--muted); font-family: var(--mono); margin-top: 1px; }
+  .header-actions { display: flex; gap: 8px; align-items: center; }
+  .btn-icon { background: none; border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 6px 10px; color: var(--muted); font-size: 12px; cursor: pointer; font-family: var(--mono); white-space: nowrap; }
+  .btn-icon:active { color: var(--accent); border-color: var(--accent); }
 
-  /* ── STATS BAR ── */
-  .stats-bar {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 1px; background: var(--border); border-bottom: 1px solid var(--border);
-  }
+  .stats-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
   .stat-box { background: var(--bg); padding: 12px 8px; text-align: center; }
   .stat-num { font-size: 24px; font-weight: 600; font-family: var(--mono); color: var(--accent); line-height: 1; }
   .stat-lbl { font-size: 10px; color: var(--muted); margin-top: 3px; letter-spacing: 0.5px; text-transform: uppercase; }
 
-  /* ── SCROLLABLE MAIN ── */
   .main { flex: 1; overflow-y: auto; padding: 16px; padding-bottom: 100px; }
 
-  /* ── ADD BAR ── */
-  .add-bar {
-    display: flex; gap: 8px; margin-bottom: 20px;
-    background: var(--surface); border: 1px solid var(--border2);
-    border-radius: var(--radius); padding: 10px 12px; align-items: center;
-  }
-  .add-bar input {
-    flex: 1; background: none; border: none; outline: none;
-    font-family: var(--sans); font-size: 14px; color: var(--text);
-  }
+  .add-bar { display: flex; gap: 8px; margin-bottom: 20px; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius); padding: 10px 12px; align-items: center; }
+  .add-bar input { flex: 1; background: none; border: none; outline: none; font-family: var(--sans); font-size: 14px; color: var(--text); }
   .add-bar input::placeholder { color: var(--dim); }
-  .add-bar button {
-    background: var(--accent); border: none; border-radius: var(--radius-sm);
-    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-    cursor: pointer; flex-shrink: 0;
-  }
+  .add-bar button { background: var(--accent); border: none; border-radius: var(--radius-sm); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
   .add-bar button svg { width: 18px; height: 18px; fill: #0f0f0f; }
 
-  /* ── SECTION HEAD ── */
   .section-head { font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; font-family: var(--mono); }
+  .section-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .section-row .section-head { margin-bottom: 0; }
 
-  /* ── PEOPLE GRID (home screen) ── */
+  /* People */
   .people-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-  .person-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 16px 18px;
-    display: flex; align-items: center; gap: 14px; cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .person-card:active { background: var(--surface2); border-color: var(--border2); }
-  .person-avatar {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(232,201,122,0.15); border: 1px solid rgba(232,201,122,0.25);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; font-weight: 600; color: var(--accent); flex-shrink: 0;
-    font-family: var(--mono);
-  }
+  .person-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: border-color 0.15s; }
+  .person-card:active { border-color: var(--border2); }
+  .person-avatar { width: 44px; height: 44px; border-radius: 50%; background: rgba(232,201,122,0.15); border: 1px solid rgba(232,201,122,0.25); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; color: var(--accent); flex-shrink: 0; font-family: var(--mono); }
   .person-info { flex: 1; min-width: 0; }
   .person-name { font-size: 16px; font-weight: 400; color: var(--text); }
   .person-meta { font-size: 11px; color: var(--muted); font-family: var(--mono); margin-top: 3px; }
+  .person-note-preview { font-size: 11px; color: var(--dim); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
   .person-arrow { color: var(--dim); font-size: 18px; }
-  .person-del {
-    background: none; border: none; color: var(--dim); cursor: pointer;
-    padding: 6px; display: flex; align-items: center;
-  }
+  .person-del { background: none; border: none; color: var(--dim); cursor: pointer; padding: 6px; display: flex; align-items: center; }
   .person-del:active { color: var(--danger); }
   .person-del svg { width: 16px; height: 16px; }
 
-  /* ── CATEGORY CARDS ── */
+  /* Category cards */
   .cat-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-  .cat-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 14px 16px;
-    display: flex; align-items: center; gap: 12px;
-    transition: border-color 0.15s;
-  }
+  .cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: flex; align-items: center; gap: 12px; transition: border-color 0.15s; }
   .cat-card.flash { border-color: var(--accent); }
   .cat-info { flex: 1; min-width: 0; }
   .cat-name { font-size: 15px; font-weight: 400; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cat-meta { font-size: 11px; color: var(--muted); margin-top: 3px; font-family: var(--mono); }
   .cat-controls { display: flex; align-items: center; gap: 10px; }
   .count-num { font-size: 22px; font-weight: 600; font-family: var(--mono); color: var(--accent); min-width: 32px; text-align: center; }
-  .btn-circle {
-    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border2);
-    background: var(--surface2); display: flex; align-items: center; justify-content: center;
-    cursor: pointer; font-size: 20px; line-height: 1; color: var(--text);
-    transition: background 0.1s, transform 0.1s; user-select: none;
-  }
+  .btn-circle { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border2); background: var(--surface2); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; line-height: 1; color: var(--text); transition: background 0.1s, transform 0.1s; user-select: none; }
   .btn-circle:active { transform: scale(0.88); }
   .btn-circle.plus { background: rgba(232,201,122,0.12); border-color: rgba(232,201,122,0.3); color: var(--accent); }
   .btn-circle.plus:active { background: rgba(232,201,122,0.25); }
-  .btn-del-cat {
-    background: none; border: none; cursor: pointer; padding: 4px;
-    color: var(--dim); display: flex; align-items: center;
-  }
+  .btn-del-cat { background: none; border: none; cursor: pointer; padding: 4px; color: var(--dim); display: flex; align-items: center; }
   .btn-del-cat:active { color: var(--danger); }
   .btn-del-cat svg { width: 16px; height: 16px; }
 
-  /* ── EMPTY STATE ── */
-  .empty-state { text-align: center; padding: 40px 20px; color: var(--dim); }
-  .empty-state .icon { font-size: 40px; margin-bottom: 12px; opacity: 0.4; }
-  .empty-state p { font-size: 14px; line-height: 1.6; }
-
-  /* ── LOG ── */
+  /* Log */
   .log-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
   .btn-clear-log { background: none; border: none; font-size: 11px; color: var(--dim); cursor: pointer; font-family: var(--mono); letter-spacing: 0.5px; }
   .btn-clear-log:active { color: var(--danger); }
   .log-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: var(--radius); overflow: hidden; }
-  .log-item {
-    background: var(--surface); padding: 10px 14px;
-    display: flex; align-items: baseline; justify-content: space-between;
-  }
+  .log-item { background: var(--surface); padding: 10px 14px; }
+  .log-item-top { display: flex; align-items: baseline; justify-content: space-between; }
   .log-cat-name { font-size: 13px; color: var(--text); }
-  .log-badge {
-    display: inline-block; background: rgba(232,201,122,0.15); color: var(--accent);
-    font-size: 10px; font-family: var(--mono); padding: 1px 6px; border-radius: 4px; margin-left: 6px;
-  }
+  .log-badge { display: inline-block; background: rgba(232,201,122,0.15); color: var(--accent); font-size: 10px; font-family: var(--mono); padding: 1px 6px; border-radius: 4px; margin-left: 6px; }
   .log-ts { font-size: 11px; color: var(--muted); font-family: var(--mono); white-space: nowrap; margin-left: 10px; }
+  .log-note { font-size: 11px; color: var(--dim); margin-top: 3px; font-style: italic; }
   .log-empty { background: var(--surface); padding: 20px; text-align: center; font-size: 13px; color: var(--dim); border-radius: var(--radius); }
 
-  /* ── INSTALL BANNER ── */
-  .install-banner {
-    background: rgba(232,201,122,0.1); border: 1px solid rgba(232,201,122,0.3);
-    border-radius: var(--radius); padding: 12px 16px; margin-bottom: 16px;
-    display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  }
+  /* Profile note */
+  .profile-note-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 20px; }
+  .profile-note-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--dim); font-family: var(--mono); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+  .profile-note-text { font-size: 13px; color: var(--muted); line-height: 1.5; white-space: pre-wrap; }
+  .profile-note-input { width: 100%; background: none; border: none; outline: none; font-family: var(--sans); font-size: 13px; color: var(--text); line-height: 1.5; resize: none; min-height: 60px; }
+  .btn-tiny { background: none; border: none; font-size: 11px; color: var(--accent); cursor: pointer; font-family: var(--mono); padding: 0; }
+
+  /* Reset buttons */
+  .reset-row { display: flex; gap: 8px; margin-bottom: 20px; }
+  .btn-reset { flex: 1; background: none; border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 9px 8px; font-size: 12px; color: var(--muted); cursor: pointer; font-family: var(--mono); text-align: center; }
+  .btn-reset:active { border-color: var(--danger); color: var(--danger); }
+
+  /* Weekly report */
+  .report-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; }
+  .report-table th { text-align: left; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--dim); font-family: var(--mono); font-weight: 400; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  .report-table td { padding: 10px 10px; border-bottom: 1px solid var(--border); color: var(--text); font-size: 13px; vertical-align: top; }
+  .report-table tr:last-child td { border-bottom: none; }
+  .report-num { font-family: var(--mono); color: var(--accent); font-size: 15px; font-weight: 600; }
+  .report-zero { font-family: var(--mono); color: var(--dim); font-size: 15px; }
+  .report-person-head { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); font-family: var(--mono); margin: 16px 0 8px; }
+  .report-week-label { font-size: 11px; color: var(--muted); font-family: var(--mono); margin-bottom: 16px; }
+
+  /* Empty */
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--dim); }
+  .empty-state .icon { font-size: 40px; margin-bottom: 12px; opacity: 0.4; }
+  .empty-state p { font-size: 14px; line-height: 1.6; }
+
+  /* Modal (note on log entry) */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 500; display: flex; align-items: flex-end; justify-content: center; }
+  .modal-overlay.hidden { display: none; }
+  .modal { background: var(--surface); border-radius: var(--radius) var(--radius) 0 0; padding: 20px; width: 100%; max-width: 480px; border-top: 1px solid var(--border2); }
+  .modal h3 { font-size: 15px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+  .modal p { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+  .modal textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 14px; font-family: var(--sans); color: var(--text); outline: none; resize: none; min-height: 80px; }
+  .modal-actions { display: flex; gap: 10px; margin-top: 14px; }
+  .btn-primary { flex: 1; background: var(--accent); border: none; border-radius: var(--radius-sm); padding: 12px; font-size: 14px; font-weight: 600; color: #0f0f0f; cursor: pointer; }
+  .btn-secondary { flex: 1; background: none; border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 12px; font-size: 14px; color: var(--muted); cursor: pointer; }
+
+  /* Install */
+  .install-banner { background: rgba(232,201,122,0.1); border: 1px solid rgba(232,201,122,0.3); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .install-banner p { font-size: 13px; color: var(--accent); flex: 1; }
   .btn-install { background: var(--accent); border: none; border-radius: var(--radius-sm); padding: 8px 14px; font-size: 13px; font-weight: 600; color: #0f0f0f; cursor: pointer; white-space: nowrap; }
   .btn-dismiss { background: none; border: none; color: var(--dim); font-size: 18px; cursor: pointer; }
 
-  /* ── TOAST ── */
-  .toast {
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
-    background: var(--surface); border: 1px solid var(--border2);
-    color: var(--text); font-size: 13px; font-family: var(--mono);
-    padding: 10px 20px; border-radius: 40px; z-index: 999;
-    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;
-    opacity: 0; white-space: nowrap; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  }
+  /* Toast */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--surface); border: 1px solid var(--border2); color: var(--text); font-size: 13px; font-family: var(--mono); padding: 10px 20px; border-radius: 40px; z-index: 999; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s; opacity: 0; white-space: nowrap; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
   .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   .toast.accent { border-color: rgba(232,201,122,0.4); color: var(--accent); }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════
-     SCREEN 1: HOME (people list)
-═══════════════════════════════════ -->
+<!-- HOME SCREEN -->
 <div class="screen active" id="screen-home">
   <div class="header">
     <div class="header-titles">
       <div class="app-title">⬡ Mistake Tracker</div>
       <div class="header-sub" id="home-date"></div>
     </div>
+    <div class="header-actions">
+      <button class="btn-icon" onclick="showScreen('screen-report')">📊 Report</button>
+    </div>
   </div>
-
   <div class="main">
     <div id="install-banner" style="display:none" class="install-banner">
       <p>📲 Install as an app on your home screen</p>
       <button class="btn-install" id="btn-install">Install</button>
       <button class="btn-dismiss" onclick="dismissBanner()">×</button>
     </div>
-
     <div class="add-bar">
       <input type="text" id="person-input" placeholder="Add a person to track…" maxlength="30" />
-      <button onclick="addPerson()" aria-label="Add person">
-        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
+      <button onclick="addPerson()"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
     </div>
-
     <div class="section-head">People</div>
     <div class="people-grid" id="people-list"></div>
-
-    <!-- Shared categories management -->
     <div class="section-head" style="margin-top:8px">Shared Behavior Categories</div>
     <div class="add-bar" style="margin-bottom:12px">
       <input type="text" id="cat-input-home" placeholder="Add a behavior category…" maxlength="40" />
-      <button onclick="addCategory()" aria-label="Add category">
-        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
+      <button onclick="addCategory()"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
     </div>
     <div class="cat-grid" id="cat-list-home"></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     SCREEN 2: PERSON DETAIL
-═══════════════════════════════════ -->
+<!-- PERSON SCREEN -->
 <div class="screen" id="screen-person">
   <div class="header">
-    <button class="btn-back" onclick="goHome()" aria-label="Back">‹</button>
+    <button class="btn-back" onclick="goHome()">‹</button>
     <div class="header-titles">
       <div class="app-title" id="person-title">Person</div>
       <div class="header-sub" id="person-date"></div>
     </div>
+    <div class="header-actions">
+      <button class="btn-icon" onclick="showResetMenu()">↺ Reset</button>
+    </div>
   </div>
-
   <div class="stats-bar">
     <div class="stat-box"><div class="stat-num" id="s-today">0</div><div class="stat-lbl">Today</div></div>
     <div class="stat-box"><div class="stat-num" id="s-week">0</div><div class="stat-lbl">This Week</div></div>
     <div class="stat-box"><div class="stat-num" id="s-all">0</div><div class="stat-lbl">All Time</div></div>
   </div>
-
   <div class="main">
+    <!-- Profile note -->
+    <div class="profile-note-box">
+      <div class="profile-note-label">
+        <span>Profile Note</span>
+        <button class="btn-tiny" id="note-edit-btn" onclick="toggleProfileNote()">Edit</button>
+      </div>
+      <div id="profile-note-display" class="profile-note-text">No note yet.</div>
+      <textarea id="profile-note-input" class="profile-note-input" placeholder="Add notes about this person…" style="display:none" oninput="autoResize(this)"></textarea>
+      <div id="profile-note-save-row" style="display:none;margin-top:8px;text-align:right">
+        <button class="btn-tiny" onclick="saveProfileNote()">Save</button>
+      </div>
+    </div>
     <div class="section-head">Behaviors</div>
     <div class="cat-grid" id="cat-list-person"></div>
-
     <div class="log-header">
       <div class="section-head" style="margin-bottom:0">Log</div>
       <button class="btn-clear-log" onclick="clearLog()">CLEAR</button>
@@ -254,120 +222,124 @@
   </div>
 </div>
 
+<!-- REPORT SCREEN -->
+<div class="screen" id="screen-report">
+  <div class="header">
+    <button class="btn-back" onclick="showScreen('screen-home');renderHome()">‹</button>
+    <div class="header-titles">
+      <div class="app-title">Weekly Report</div>
+      <div class="header-sub" id="report-range"></div>
+    </div>
+  </div>
+  <div class="main" id="report-body"></div>
+</div>
+
+<!-- NOTE MODAL -->
+<div class="modal-overlay hidden" id="note-modal">
+  <div class="modal">
+    <h3 id="modal-title">Log a mistake</h3>
+    <p>Optional: add a note about this incident</p>
+    <textarea id="modal-note" placeholder="What happened? (optional)"></textarea>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal(false)">Skip</button>
+      <button class="btn-primary" onclick="closeModal(true)">Log It</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 
-// ── PWA install ──
+// PWA install
 let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault(); deferredPrompt = e;
-  document.getElementById('install-banner').style.display = 'flex';
-});
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; document.getElementById('install-banner').style.display='flex'; });
 document.getElementById('btn-install').addEventListener('click', async () => {
   if (!deferredPrompt) return;
   deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  document.getElementById('install-banner').style.display = 'none';
-  if (outcome === 'accepted') showToast('App installed!', true);
+  const {outcome} = await deferredPrompt.userChoice;
+  deferredPrompt = null; document.getElementById('install-banner').style.display='none';
+  if (outcome==='accepted') showToast('App installed!', true);
 });
-window.addEventListener('appinstalled', () => {
-  document.getElementById('install-banner').style.display = 'none';
-});
-function dismissBanner() { document.getElementById('install-banner').style.display = 'none'; }
+window.addEventListener('appinstalled', () => document.getElementById('install-banner').style.display='none');
+function dismissBanner() { document.getElementById('install-banner').style.display='none'; }
 
-// ── Data ──
-// people: [{id, name}]
-// categories: [{id, name}]
-// logs: [{id, personId, catId, catName, ts}]
-// counts: { personId: { catId: number } }
-
-let people = [], categories = [], logs = [], counts = {};
-let activePerson = null; // {id, name}
-
+// ── DATA ──
+let people=[], categories=[], logs=[], counts={}, profileNotes={};
 function loadData() {
-  try { people    = JSON.parse(localStorage.getItem('mtk3_people')     || '[]'); } catch(e){ people = []; }
-  try { categories= JSON.parse(localStorage.getItem('mtk3_cats')       || '[]'); } catch(e){ categories = []; }
-  try { logs      = JSON.parse(localStorage.getItem('mtk3_logs')       || '[]'); } catch(e){ logs = []; }
-  try { counts    = JSON.parse(localStorage.getItem('mtk3_counts')     || '{}'); } catch(e){ counts = {}; }
+  try { people       = JSON.parse(localStorage.getItem('mtk4_people')  || '[]'); } catch(e){ people=[]; }
+  try { categories   = JSON.parse(localStorage.getItem('mtk4_cats')    || '[]'); } catch(e){ categories=[]; }
+  try { logs         = JSON.parse(localStorage.getItem('mtk4_logs')    || '[]'); } catch(e){ logs=[]; }
+  try { counts       = JSON.parse(localStorage.getItem('mtk4_counts')  || '{}'); } catch(e){ counts={}; }
+  try { profileNotes = JSON.parse(localStorage.getItem('mtk4_notes')   || '{}'); } catch(e){ profileNotes={}; }
 }
-
 function saveData() {
   try {
-    localStorage.setItem('mtk3_people',  JSON.stringify(people));
-    localStorage.setItem('mtk3_cats',    JSON.stringify(categories));
-    localStorage.setItem('mtk3_logs',    JSON.stringify(logs));
-    localStorage.setItem('mtk3_counts',  JSON.stringify(counts));
+    localStorage.setItem('mtk4_people',  JSON.stringify(people));
+    localStorage.setItem('mtk4_cats',    JSON.stringify(categories));
+    localStorage.setItem('mtk4_logs',    JSON.stringify(logs));
+    localStorage.setItem('mtk4_counts',  JSON.stringify(counts));
+    localStorage.setItem('mtk4_notes',   JSON.stringify(profileNotes));
   } catch(e){}
 }
-
 function uid() { return Math.random().toString(36).slice(2,9); }
-
-function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function fmtDate(ts) {
-  const d = new Date(ts), now = new Date();
-  const isToday = d.toDateString() === now.toDateString();
-  const time = d.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit', hour12:true});
-  return isToday ? time : d.toLocaleDateString('en-US', {month:'short', day:'numeric'}) + ' ' + time;
+  const d=new Date(ts), now=new Date();
+  const isToday=d.toDateString()===now.toDateString();
+  const time=d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
+  return isToday ? time : d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '+time;
 }
+function startOfWeek() { const d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-d.getDay()); return d.getTime(); }
 
-function startOfWeek() {
-  const d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() - d.getDay()); return d.getTime();
+// ── NAVIGATION ──
+let activePerson=null;
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
+function goHome() { activePerson=null; showScreen('screen-home'); renderHome(); }
 
-function updateDates() {
-  const str = new Date().toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
-  document.getElementById('home-date').textContent = str;
-  document.getElementById('person-date').textContent = str;
-}
-
-// ── Navigation ──
-function goHome() {
-  activePerson = null;
-  document.getElementById('screen-home').classList.add('active');
-  document.getElementById('screen-person').classList.remove('active');
-  renderHome();
-}
-
-function openPerson(person) {
-  activePerson = person;
-  document.getElementById('person-title').textContent = person.name;
-  document.getElementById('screen-home').classList.remove('active');
-  document.getElementById('screen-person').classList.add('active');
+function openPerson(pid) {
+  activePerson = people.find(p=>p.id===pid);
+  if (!activePerson) return;
+  document.getElementById('person-title').textContent = activePerson.name;
+  showScreen('screen-person');
+  loadProfileNote();
   renderPerson();
 }
 
-// ── Rendering: HOME ──
-function renderHome() {
-  renderPeopleList();
-  renderHomeCats();
+// ── DATES ──
+function updateDates() {
+  const str=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+  document.getElementById('home-date').textContent=str;
+  document.getElementById('person-date').textContent=str;
+  // report range
+  const ws=new Date(startOfWeek()), we=new Date(ws); we.setDate(we.getDate()+6);
+  document.getElementById('report-range').textContent=
+    ws.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' – '+we.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 }
 
+// ── HOME ──
+function renderHome() { renderPeopleList(); renderHomeCats(); }
+
 function renderPeopleList() {
-  const el = document.getElementById('people-list');
-  if (!people.length) {
-    el.innerHTML = `<div class="empty-state"><div class="icon">👥</div><p>No people added yet.<br>Add someone above to start.</p></div>`;
-    return;
-  }
-  el.innerHTML = people.map(p => {
-    const personLogs = logs.filter(l => l.personId === p.id);
-    const todayCount = personLogs.filter(l => new Date(l.ts).toDateString() === new Date().toDateString()).length;
-    const initial = p.name.charAt(0).toUpperCase();
-    return `<div class="person-card" onclick="openPerson(${JSON.stringify(p).replace(/"/g,'&quot;')})">
-      <div class="person-avatar">${initial}</div>
+  const el=document.getElementById('people-list');
+  if (!people.length) { el.innerHTML=`<div class="empty-state"><div class="icon">👥</div><p>No people added yet.<br>Add someone above to start.</p></div>`; return; }
+  el.innerHTML=people.map(p=>{
+    const pl=logs.filter(l=>l.personId===p.id);
+    const todayCount=pl.filter(l=>new Date(l.ts).toDateString()===new Date().toDateString()).length;
+    const note=profileNotes[p.id]||'';
+    return `<div class="person-card" onclick="openPerson('${p.id}')">
+      <div class="person-avatar">${p.name.charAt(0).toUpperCase()}</div>
       <div class="person-info">
         <div class="person-name">${escHtml(p.name)}</div>
-        <div class="person-meta">today: ${todayCount} &nbsp;·&nbsp; total: ${personLogs.length}</div>
+        <div class="person-meta">today: ${todayCount} &nbsp;·&nbsp; total: ${pl.length}</div>
+        ${note?`<div class="person-note-preview">${escHtml(note)}</div>`:''}
       </div>
       <span class="person-arrow">›</span>
-      <button class="person-del" onclick="event.stopPropagation();deletePerson('${p.id}')" aria-label="Delete ${escHtml(p.name)}">
+      <button class="person-del" onclick="event.stopPropagation();deletePerson('${p.id}')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
       </button>
     </div>`;
@@ -375,168 +347,248 @@ function renderPeopleList() {
 }
 
 function renderHomeCats() {
-  const el = document.getElementById('cat-list-home');
-  if (!categories.length) {
-    el.innerHTML = `<div class="empty-state" style="padding:20px 0"><div class="icon" style="font-size:28px">🏷</div><p>No categories yet. Add one above.</p></div>`;
-    return;
-  }
-  el.innerHTML = categories.map(c =>
-    `<div class="cat-card" style="padding:10px 16px">
-      <div class="cat-info"><div class="cat-name">${escHtml(c.name)}</div></div>
-      <button class="btn-del-cat" onclick="deleteCategory('${c.id}')" aria-label="Delete ${escHtml(c.name)}">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
-      </button>
-    </div>`
-  ).join('');
+  const el=document.getElementById('cat-list-home');
+  if (!categories.length) { el.innerHTML=`<div class="empty-state" style="padding:20px 0"><div class="icon" style="font-size:28px">🏷</div><p>No categories yet.</p></div>`; return; }
+  el.innerHTML=categories.map(c=>`<div class="cat-card" style="padding:10px 16px">
+    <div class="cat-info"><div class="cat-name">${escHtml(c.name)}</div></div>
+    <button class="btn-del-cat" onclick="deleteCategory('${c.id}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+    </button>
+  </div>`).join('');
 }
 
-// ── Rendering: PERSON ──
-function renderPerson() {
-  if (!activePerson) return;
-  renderPersonCats();
-  renderLog();
-  updateStats();
-}
+// ── PERSON ──
+function renderPerson() { if (!activePerson) return; renderPersonCats(); renderLog(); updateStats(); }
 
-function getCount(personId, catId) {
-  return (counts[personId] && counts[personId][catId]) ? counts[personId][catId] : 0;
-}
+function getCount(pid,cid) { return (counts[pid]&&counts[pid][cid]) ? counts[pid][cid] : 0; }
 
 function renderPersonCats() {
-  const el = document.getElementById('cat-list-person');
-  if (!categories.length) {
-    el.innerHTML = `<div class="empty-state"><div class="icon">🏷</div><p>No categories yet.<br>Go back and add some.</p></div>`;
-    return;
-  }
-  const pid = activePerson.id;
-  el.innerHTML = categories.map((c, i) => {
-    const cnt = getCount(pid, c.id);
-    const last = [...logs].reverse().find(l => l.personId === pid && l.catId === c.id);
+  const el=document.getElementById('cat-list-person');
+  if (!categories.length) { el.innerHTML=`<div class="empty-state"><div class="icon">🏷</div><p>No categories yet.<br>Go back and add some.</p></div>`; return; }
+  const pid=activePerson.id;
+  el.innerHTML=categories.map((c,i)=>{
+    const cnt=getCount(pid,c.id);
+    const last=[...logs].reverse().find(l=>l.personId===pid&&l.catId===c.id);
     return `<div class="cat-card" id="card-${i}">
       <div class="cat-info">
         <div class="cat-name">${escHtml(c.name)}</div>
-        <div class="cat-meta">last: ${last ? fmtDate(last.ts) : 'never'}</div>
+        <div class="cat-meta">last: ${last?fmtDate(last.ts):'never'}</div>
       </div>
       <div class="cat-controls">
         <button class="btn-circle" onclick="decrement('${c.id}',${i})">−</button>
         <span class="count-num">${cnt}</span>
-        <button class="btn-circle plus" onclick="increment('${c.id}','${escHtml(c.name)}',${i})">+</button>
+        <button class="btn-circle plus" onclick="promptLog('${c.id}','${escHtml(c.name)}',${i})">+</button>
       </div>
     </div>`;
   }).join('');
 }
 
 function renderLog() {
-  const wrap = document.getElementById('log-wrap');
+  const wrap=document.getElementById('log-wrap');
   if (!activePerson) return;
-  const personLogs = logs.filter(l => l.personId === activePerson.id).reverse().slice(0, 30);
-  if (!personLogs.length) { wrap.innerHTML = '<div class="log-empty">No entries yet</div>'; return; }
-  wrap.innerHTML = `<div class="log-list">${personLogs.map(l =>
-    `<div class="log-item">
+  const pl=logs.filter(l=>l.personId===activePerson.id).reverse().slice(0,40);
+  if (!pl.length) { wrap.innerHTML='<div class="log-empty">No entries yet</div>'; return; }
+  wrap.innerHTML=`<div class="log-list">${pl.map(l=>`<div class="log-item">
+    <div class="log-item-top">
       <div><span class="log-cat-name">${escHtml(l.catName)}</span><span class="log-badge">+1</span></div>
       <span class="log-ts">${fmtDate(l.ts)}</span>
-    </div>`).join('')}</div>`;
+    </div>
+    ${l.note?`<div class="log-note">📝 ${escHtml(l.note)}</div>`:''}
+  </div>`).join('')}</div>`;
 }
 
 function updateStats() {
   if (!activePerson) return;
-  const pid = activePerson.id;
-  const personLogs = logs.filter(l => l.personId === pid);
-  const todayStr = new Date().toDateString();
-  const weekStart = startOfWeek();
-  document.getElementById('s-today').textContent = personLogs.filter(l => new Date(l.ts).toDateString() === todayStr).length;
-  document.getElementById('s-week').textContent  = personLogs.filter(l => new Date(l.ts).getTime() >= weekStart).length;
-  document.getElementById('s-all').textContent   = personLogs.length;
+  const pid=activePerson.id;
+  const pl=logs.filter(l=>l.personId===pid);
+  const todayStr=new Date().toDateString(), ws=startOfWeek();
+  document.getElementById('s-today').textContent=pl.filter(l=>new Date(l.ts).toDateString()===todayStr).length;
+  document.getElementById('s-week').textContent=pl.filter(l=>new Date(l.ts).getTime()>=ws).length;
+  document.getElementById('s-all').textContent=pl.length;
 }
 
-// ── Actions ──
-function addPerson() {
-  const inp = document.getElementById('person-input');
-  const name = inp.value.trim();
-  if (!name) return;
-  if (people.find(p => p.name.toLowerCase() === name.toLowerCase())) { showToast('Already added'); inp.select(); return; }
-  people.push({ id: uid(), name });
-  saveData(); renderHome();
-  inp.value = ''; showToast('Added: ' + name, true);
+// ── PROFILE NOTE ──
+function loadProfileNote() {
+  const note=profileNotes[activePerson.id]||'';
+  document.getElementById('profile-note-display').textContent=note||'No note yet.';
+  document.getElementById('profile-note-input').value=note;
+  document.getElementById('profile-note-display').style.display='block';
+  document.getElementById('profile-note-input').style.display='none';
+  document.getElementById('profile-note-save-row').style.display='none';
+  document.getElementById('note-edit-btn').textContent='Edit';
 }
-
-function deletePerson(id) {
-  const p = people.find(x => x.id === id);
-  if (!p || !confirm(`Delete "${p.name}" and all their data?`)) return;
-  people = people.filter(x => x.id !== id);
-  logs = logs.filter(l => l.personId !== id);
-  delete counts[id];
-  saveData(); renderHome(); showToast('Deleted: ' + p.name);
+function toggleProfileNote() {
+  const disp=document.getElementById('profile-note-display');
+  const inp=document.getElementById('profile-note-input');
+  const saveRow=document.getElementById('profile-note-save-row');
+  const editing=inp.style.display==='block';
+  disp.style.display=editing?'block':'none';
+  inp.style.display=editing?'none':'block';
+  saveRow.style.display=editing?'none':'block';
+  document.getElementById('note-edit-btn').textContent=editing?'Edit':'Cancel';
+  if (!editing) inp.focus();
 }
-
-function addCategory() {
-  const inp = document.getElementById('cat-input-home');
-  const name = inp.value.trim();
-  if (!name) return;
-  if (categories.find(c => c.name.toLowerCase() === name.toLowerCase())) { showToast('Already exists'); inp.select(); return; }
-  categories.push({ id: uid(), name });
-  saveData(); renderHome();
-  inp.value = ''; showToast('Category added: ' + name, true);
-}
-
-function deleteCategory(id) {
-  const c = categories.find(x => x.id === id);
-  if (!c || !confirm(`Delete category "${c.name}"?\nThis removes it for all people.`)) return;
-  categories = categories.filter(x => x.id !== id);
-  logs = logs.filter(l => l.catId !== id);
-  Object.keys(counts).forEach(pid => { if (counts[pid]) delete counts[pid][id]; });
-  saveData(); renderHome(); showToast('Deleted: ' + c.name);
-}
-
-function increment(catId, catName, cardIdx) {
+function saveProfileNote() {
   if (!activePerson) return;
-  const pid = activePerson.id;
-  if (!counts[pid]) counts[pid] = {};
-  counts[pid][catId] = (counts[pid][catId] || 0) + 1;
-  logs.push({ id: uid(), personId: pid, catId, catName, ts: new Date().toISOString() });
-  saveData(); renderPerson();
-  flashCard(cardIdx);
-  showToast(catName + ' +1', true);
+  const val=document.getElementById('profile-note-input').value.trim();
+  profileNotes[activePerson.id]=val;
+  saveData();
+  document.getElementById('profile-note-display').textContent=val||'No note yet.';
+  document.getElementById('profile-note-display').style.display='block';
+  document.getElementById('profile-note-input').style.display='none';
+  document.getElementById('profile-note-save-row').style.display='none';
+  document.getElementById('note-edit-btn').textContent='Edit';
+  showToast('Note saved', true);
+}
+function autoResize(el) { el.style.height='auto'; el.style.height=el.scrollHeight+'px'; }
+
+// ── NOTE MODAL (log entry note) ──
+let pendingLog=null;
+function promptLog(catId,catName,cardIdx) {
+  pendingLog={catId,catName,cardIdx};
+  document.getElementById('modal-title').textContent='Log: '+catName;
+  document.getElementById('modal-note').value='';
+  document.getElementById('note-modal').classList.remove('hidden');
+  setTimeout(()=>document.getElementById('modal-note').focus(),100);
+}
+function closeModal(doLog) {
+  const note=document.getElementById('modal-note').value.trim();
+  document.getElementById('note-modal').classList.add('hidden');
+  if (doLog && pendingLog) commitLog(pendingLog.catId, pendingLog.catName, pendingLog.cardIdx, note);
+  else if (!doLog && pendingLog) commitLog(pendingLog.catId, pendingLog.catName, pendingLog.cardIdx, '');
+  pendingLog=null;
+}
+function commitLog(catId,catName,cardIdx,note) {
+  if (!activePerson) return;
+  const pid=activePerson.id;
+  if (!counts[pid]) counts[pid]={};
+  counts[pid][catId]=(counts[pid][catId]||0)+1;
+  logs.push({id:uid(),personId:pid,catId,catName,note,ts:new Date().toISOString()});
+  saveData(); renderPerson(); flashCard(cardIdx);
+  showToast(catName+' +1'+(note?' 📝':''), true);
 }
 
-function decrement(catId, cardIdx) {
+// ── DECREMENT ──
+function decrement(catId,cardIdx) {
   if (!activePerson) return;
-  const pid = activePerson.id;
-  if (!counts[pid] || !counts[pid][catId] || counts[pid][catId] <= 0) return;
+  const pid=activePerson.id;
+  if (!counts[pid]||!counts[pid][catId]||counts[pid][catId]<=0) return;
   counts[pid][catId]--;
-  const idx = [...logs].map((l,j)=>({l,j})).filter(({l})=>l.personId===pid&&l.catId===catId).slice(-1)[0];
-  if (idx) logs.splice(idx.j, 1);
+  const idx=[...logs].map((l,j)=>({l,j})).filter(({l})=>l.personId===pid&&l.catId===catId).slice(-1)[0];
+  if (idx) logs.splice(idx.j,1);
   saveData(); renderPerson(); showToast('Undone');
 }
 
+// ── RESET ──
+function showResetMenu() {
+  if (!activePerson) return;
+  const choice=confirm(`Reset options for ${activePerson.name}:\n\nOK = Reset THIS person's counts\nCancel = See option to reset EVERYONE`);
+  if (choice) {
+    if (confirm(`Reset all counts for ${activePerson.name}? Log entries will stay.`)) {
+      counts[activePerson.id]={};
+      saveData(); renderPerson(); showToast('Counts reset for '+activePerson.name);
+    }
+  } else {
+    if (confirm('Reset counts for ALL people? Log entries will stay.')) {
+      counts={};
+      saveData(); renderPerson(); showToast('All counts reset');
+    }
+  }
+}
+
+// ── CLEAR LOG ──
 function clearLog() {
-  if (!activePerson || !confirm('Clear log for ' + activePerson.name + '?\nCounts will stay.')) return;
-  logs = logs.filter(l => l.personId !== activePerson.id);
+  if (!activePerson||!confirm('Clear log for '+activePerson.name+'?\nCounts will stay.')) return;
+  logs=logs.filter(l=>l.personId!==activePerson.id);
   saveData(); renderPerson(); showToast('Log cleared');
 }
 
+// ── WEEKLY REPORT ──
+function renderReport() {
+  const ws=startOfWeek(), we=ws+(7*24*60*60*1000);
+  const body=document.getElementById('report-body');
+  if (!people.length||!categories.length) {
+    body.innerHTML='<div class="empty-state"><div class="icon">📊</div><p>No data yet.<br>Add people and categories first.</p></div>';
+    return;
+  }
+  let html='';
+  people.forEach(p=>{
+    const weekLogs=logs.filter(l=>l.personId===p.id&&new Date(l.ts).getTime()>=ws&&new Date(l.ts).getTime()<we);
+    const total=weekLogs.length;
+    html+=`<div class="report-person-head">${escHtml(p.name)} &nbsp;<span style="color:var(--dim);font-size:11px">${total} total this week</span></div>`;
+    html+=`<table class="report-table"><tr><th>Behavior</th><th>Count</th></tr>`;
+    categories.forEach(c=>{
+      const cnt=weekLogs.filter(l=>l.catId===c.id).length;
+      html+=`<tr><td>${escHtml(c.name)}</td><td>${cnt>0?`<span class="report-num">${cnt}</span>`:`<span class="report-zero">—</span>`}</td></tr>`;
+    });
+    html+=`</table>`;
+  });
+  body.innerHTML=html;
+}
+
+// ── HOME ACTIONS ──
+function addPerson() {
+  const inp=document.getElementById('person-input');
+  const name=inp.value.trim(); if (!name) return;
+  if (people.find(p=>p.name.toLowerCase()===name.toLowerCase())) { showToast('Already added'); inp.select(); return; }
+  people.push({id:uid(),name}); saveData(); renderHome();
+  inp.value=''; showToast('Added: '+name, true);
+}
+function deletePerson(id) {
+  const p=people.find(x=>x.id===id);
+  if (!p||!confirm(`Delete "${p.name}" and all their data?`)) return;
+  people=people.filter(x=>x.id!==id);
+  logs=logs.filter(l=>l.personId!==id);
+  delete counts[id]; delete profileNotes[id];
+  saveData(); renderHome(); showToast('Deleted: '+p.name);
+}
+function addCategory() {
+  const inp=document.getElementById('cat-input-home');
+  const name=inp.value.trim(); if (!name) return;
+  if (categories.find(c=>c.name.toLowerCase()===name.toLowerCase())) { showToast('Already exists'); inp.select(); return; }
+  categories.push({id:uid(),name}); saveData(); renderHome();
+  inp.value=''; showToast('Category added: '+name, true);
+}
+function deleteCategory(id) {
+  const c=categories.find(x=>x.id===id);
+  if (!c||!confirm(`Delete category "${c.name}"?\nRemoves it for all people.`)) return;
+  categories=categories.filter(x=>x.id!==id);
+  logs=logs.filter(l=>l.catId!==id);
+  Object.keys(counts).forEach(pid=>{ if(counts[pid]) delete counts[pid][id]; });
+  saveData(); renderHome(); showToast('Deleted: '+c.name);
+}
+
+// ── UTILS ──
 function flashCard(i) {
-  const card = document.getElementById('card-' + i);
+  const card=document.getElementById('card-'+i);
   if (!card) return;
-  card.classList.add('flash'); setTimeout(() => card.classList.remove('flash'), 400);
+  card.classList.add('flash'); setTimeout(()=>card.classList.remove('flash'),400);
 }
-
-function showToast(msg, accent) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.className = 'toast' + (accent ? ' accent' : '');
+function showToast(msg,accent) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast'+(accent?' accent':'');
   void t.offsetWidth; t.classList.add('show');
-  clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 1800);
+  clearTimeout(t._timer); t._timer=setTimeout(()=>t.classList.remove('show'),1800);
 }
 
-// ── Enter key support ──
-document.getElementById('person-input').addEventListener('keydown', e => { if (e.key==='Enter') addPerson(); });
-document.getElementById('cat-input-home').addEventListener('keydown', e => { if (e.key==='Enter') addCategory(); });
+// Report screen hook
+document.getElementById('screen-report').addEventListener('transitionend',()=>{});
+const _origShowScreen=showScreen;
+window.showScreen=function(id) {
+  _origShowScreen(id);
+  if (id==='screen-report') renderReport();
+};
 
-// ── Init ──
-loadData();
-updateDates();
-renderHome();
-setInterval(updateDates, 60000);
+// Enter keys
+document.getElementById('person-input').addEventListener('keydown',e=>{if(e.key==='Enter')addPerson();});
+document.getElementById('cat-input-home').addEventListener('keydown',e=>{if(e.key==='Enter')addCategory();});
+document.getElementById('modal-note').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();closeModal(true);}});
+
+// Close modal on overlay tap
+document.getElementById('note-modal').addEventListener('click',function(e){if(e.target===this)closeModal(false);});
+
+loadData(); updateDates(); renderHome();
+setInterval(updateDates,60000);
 </script>
 </body>
 </html>
