@@ -1,4 +1,4 @@
-const CACHE = 'mtk-v3';
+const CACHE = 'mtk-v4';
 const BASE = '/mistake-tracker/';
 const ASSETS = [
   BASE,
