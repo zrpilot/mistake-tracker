@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#0f0f0f">
+<meta name="theme-color" content="#141414">
 <link rel="manifest" href="manifest.json">
 <title>Mistake Tracker</title>
 <style>
 :root {
-  --bg:#0f0f0f;--surface:#1a1a1a;--surface2:#242424;
-  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.16);
-  --text:#f0ede8;--muted:#888;--dim:#555;
-  --accent:#e8c97a;--danger:#e06060;--safe:#6ab187;--safe2:rgba(106,177,135,0.15);
+  --bg:#141414;--surface:#222;--surface2:#2d2d2d;
+  --border:rgba(255,255,255,0.13);--border2:rgba(255,255,255,0.24);
+  --text:#fffaf3;--muted:#c2bdb5;--dim:#96918a;
+  --accent:#f2d789;--danger:#ef7b7b;--safe:#82c99e;--safe2:rgba(130,201,158,0.17);
   --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
   --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --radius:14px;--radius-sm:8px;
@@ -28,9 +28,9 @@ body{display:flex;flex-direction:column;}
 .btn-back{background:none;border:none;color:var(--accent);font-size:26px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;}
 .header-titles{flex:1;min-width:0;}
 .app-title{font-size:17px;font-weight:600;color:var(--accent);}
-.header-sub{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:1px;}
+.header-sub{font-size:12px;color:var(--muted);font-family:var(--mono);margin-top:1px;}
 .header-actions{display:flex;gap:6px;}
-.btn-icon{background:none;border:1px solid var(--border2);border-radius:var(--radius-sm);padding:5px 9px;color:var(--muted);font-size:11px;cursor:pointer;font-family:var(--mono);white-space:nowrap;}
+.btn-icon{background:none;border:1px solid var(--border2);border-radius:var(--radius-sm);padding:6px 10px;color:var(--muted);font-size:12px;cursor:pointer;font-family:var(--mono);white-space:nowrap;}
 .btn-icon:active{color:var(--accent);border-color:var(--accent);}
 
 /* Score bar */
@@ -40,7 +40,7 @@ body{display:flex;flex-direction:column;}
 .stat-num.positive{color:var(--safe);}
 .stat-num.net-pos{color:var(--safe);}
 .stat-num.net-neg{color:var(--danger);}
-.stat-lbl{font-size:9px;color:var(--muted);margin-top:2px;letter-spacing:0.5px;text-transform:uppercase;}
+.stat-lbl{font-size:10px;color:var(--muted);margin-top:3px;letter-spacing:0.4px;text-transform:uppercase;}
 
 /* Main */
 .main{flex:1;overflow-y:auto;padding:14px;padding-bottom:100px;}
@@ -52,7 +52,7 @@ body{display:flex;flex-direction:column;}
 .add-bar button{background:var(--accent);border:none;border-radius:var(--radius-sm);width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
 .add-bar button svg{width:16px;height:16px;fill:#0f0f0f;}
 
-.section-head{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);margin-bottom:8px;font-family:var(--mono);}
+.section-head{font-size:11px;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-family:var(--mono);}
 .section-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .section-row .section-head{margin-bottom:0;}
 
@@ -63,8 +63,8 @@ body{display:flex;flex-direction:column;}
 .person-avatar{width:42px;height:42px;border-radius:50%;background:rgba(232,201,122,0.15);border:1px solid rgba(232,201,122,0.25);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;color:var(--accent);flex-shrink:0;font-family:var(--mono);}
 .person-info{flex:1;min-width:0;}
 .person-name{font-size:15px;font-weight:400;color:var(--text);}
-.person-meta{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:2px;}
-.person-score{font-size:11px;margin-top:2px;font-family:var(--mono);}
+.person-meta{font-size:12px;color:var(--muted);font-family:var(--mono);margin-top:3px;}
+.person-score{font-size:12px;margin-top:3px;font-family:var(--mono);}
 .person-score .neg{color:var(--danger);}
 .person-score .pos{color:var(--safe);}
 .person-score .net{font-weight:600;}
@@ -81,7 +81,7 @@ body{display:flex;flex-direction:column;}
 .main-cat-chevron.open{transform:rotate(90deg);}
 .main-cat-info{flex:1;min-width:0;}
 .main-cat-name{font-size:15px;font-weight:500;color:var(--text);}
-.main-cat-total{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:2px;}
+.main-cat-total{font-size:12px;color:var(--muted);font-family:var(--mono);margin-top:3px;}
 .main-cat-count{font-size:20px;font-weight:600;font-family:var(--mono);color:var(--accent);min-width:28px;text-align:right;}
 .main-cat-del{background:none;border:none;color:var(--dim);cursor:pointer;padding:4px;display:flex;}
 .main-cat-del:active{color:var(--danger);}
@@ -92,8 +92,8 @@ body{display:flex;flex-direction:column;}
 .sub-item{display:flex;align-items:center;gap:10px;padding:10px 14px 10px 32px;border-bottom:1px solid var(--border);}
 .sub-item:last-child{border-bottom:none;}
 .sub-item.flash{background:rgba(232,201,122,0.06);}
-.sub-name{flex:1;font-size:13px;color:var(--text);}
-.sub-last{font-size:10px;color:var(--dim);font-family:var(--mono);margin-top:1px;}
+.sub-name{flex:1;font-size:14px;color:var(--text);}
+.sub-last{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:2px;}
 .sub-controls{display:flex;align-items:center;gap:8px;}
 .sub-count{font-size:16px;font-weight:600;font-family:var(--mono);color:var(--accent);min-width:24px;text-align:center;}
 .btn-sm{width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--surface2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;line-height:1;color:var(--text);user-select:none;}
@@ -104,9 +104,12 @@ body{display:flex;flex-direction:column;}
 .btn-sm-del svg{width:13px;height:13px;}
 
 /* Add sub form */
-.add-sub-form{display:flex;gap:6px;padding:8px 14px 8px 32px;border-top:1px solid var(--border);background:var(--surface2);}
-.add-sub-form input{flex:1;background:none;border:none;outline:none;font-size:13px;color:var(--text);font-family:var(--sans);}
-.add-sub-form input::placeholder{color:var(--dim);}
+.add-details-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;padding:9px 14px 9px 32px;border-top:1px solid var(--border);background:var(--surface2);}
+.add-details-form.home-form{border:1px solid var(--border2);border-radius:var(--radius);padding:9px 12px;margin-bottom:10px;background:var(--surface);}
+.add-details-form input{min-width:0;background:rgba(255,255,255,0.035);border:1px solid var(--border);border-radius:6px;outline:none;padding:7px 9px;font-size:14px;color:var(--text);font-family:var(--sans);}
+.add-details-form input:focus{border-color:var(--accent);}
+.add-details-form input::placeholder{color:var(--dim);}
+.add-details-form button{grid-column:2;grid-row:1 / span 2;align-self:stretch;height:auto;min-height:32px;}
 .btn-add-sub{background:var(--accent);border:none;border-radius:6px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
 .btn-add-sub svg{width:14px;height:14px;fill:#0f0f0f;}
 
@@ -120,7 +123,7 @@ body{display:flex;flex-direction:column;}
 .good-cats{border-top:1px solid rgba(106,177,135,0.15);}
 .good-item{display:flex;align-items:center;gap:10px;padding:9px 14px 9px 14px;border-bottom:1px solid rgba(106,177,135,0.1);}
 .good-item:last-child{border-bottom:none;}
-.good-name{flex:1;font-size:13px;color:var(--text);}
+.good-name{flex:1;font-size:14px;color:var(--text);}
 .good-count{font-size:16px;font-weight:600;font-family:var(--mono);color:var(--safe);min-width:24px;text-align:center;}
 .btn-sm.good-plus{background:rgba(106,177,135,0.12);border-color:rgba(106,177,135,0.3);color:var(--safe);}
 .add-good-form{display:flex;gap:6px;padding:8px 14px;border-top:1px solid rgba(106,177,135,0.15);background:rgba(106,177,135,0.04);}
@@ -131,39 +134,51 @@ body{display:flex;flex-direction:column;}
 
 /* Profile note */
 .profile-note-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;margin-bottom:16px;}
-.profile-note-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-family:var(--mono);margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
-.profile-note-text{font-size:13px;color:var(--muted);line-height:1.5;white-space:pre-wrap;}
-.profile-note-input{width:100%;background:none;border:none;outline:none;font-family:var(--sans);font-size:13px;color:var(--text);line-height:1.5;resize:none;min-height:50px;}
-.btn-tiny{background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;font-family:var(--mono);padding:0;}
+.profile-note-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:var(--mono);margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
+.profile-note-text{font-size:14px;color:var(--muted);line-height:1.5;white-space:pre-wrap;}
+.profile-note-input{width:100%;background:none;border:none;outline:none;font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.5;resize:none;min-height:50px;}
+.btn-tiny{background:none;border:none;font-size:12px;color:var(--accent);cursor:pointer;font-family:var(--mono);padding:0;}
+
+/* Rewards and consequences */
+.association{font-size:12px;line-height:1.35;margin-top:4px;color:var(--muted);}
+.association.consequence{color:#e6bd91;}
+.association.reward{color:var(--safe);}
+.association.empty{color:var(--dim);font-style:italic;}
+.item-copy{flex:1;min-width:0;}
+.item-actions{display:flex;align-items:center;gap:8px;}
+.btn-edit-assoc{background:none;border:1px solid var(--border2);border-radius:6px;color:var(--muted);font-size:11px;font-family:var(--mono);padding:4px 7px;cursor:pointer;}
+.btn-edit-assoc:active{color:var(--accent);border-color:var(--accent);}
+.log-association{font-size:12px;color:var(--muted);margin-top:4px;}
+.modal .association{margin-bottom:10px;}
 
 /* Log */
 .log-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.btn-clear-log{background:none;border:none;font-size:11px;color:var(--dim);cursor:pointer;font-family:var(--mono);}
+.btn-clear-log{background:none;border:none;font-size:12px;color:var(--muted);cursor:pointer;font-family:var(--mono);}
 .btn-clear-log:active{color:var(--danger);}
 .log-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border-radius:var(--radius);overflow:hidden;}
 .log-item{background:var(--surface);padding:9px 13px;}
 .log-item-top{display:flex;align-items:baseline;justify-content:space-between;}
 .log-cat-name{font-size:13px;color:var(--text);}
-.log-badge{display:inline-block;font-size:10px;font-family:var(--mono);padding:1px 6px;border-radius:4px;margin-left:5px;}
+.log-badge{display:inline-block;font-size:11px;font-family:var(--mono);padding:1px 6px;border-radius:4px;margin-left:5px;}
 .log-badge.neg{background:rgba(224,96,96,0.15);color:var(--danger);}
 .log-badge.pos{background:rgba(106,177,135,0.15);color:var(--safe);}
-.log-ts{font-size:11px;color:var(--muted);font-family:var(--mono);white-space:nowrap;margin-left:8px;}
-.log-note{font-size:11px;color:var(--dim);margin-top:2px;font-style:italic;}
+.log-ts{font-size:12px;color:var(--muted);font-family:var(--mono);white-space:nowrap;margin-left:8px;}
+.log-note{font-size:12px;color:var(--muted);margin-top:3px;font-style:italic;}
 .log-parent{font-size:10px;color:var(--dim);font-family:var(--mono);margin-top:1px;}
 .log-empty{background:var(--surface);padding:18px;text-align:center;font-size:13px;color:var(--dim);border-radius:var(--radius);}
 
 /* Report */
 .report-person-section{margin-bottom:24px;}
-.report-person-head{font-size:13px;font-weight:600;color:var(--accent);margin-bottom:4px;font-family:var(--mono);}
-.report-week-meta{font-size:11px;color:var(--muted);margin-bottom:10px;font-family:var(--mono);}
-.report-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:8px;}
-.report-table th{text-align:left;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-family:var(--mono);font-weight:400;padding:6px 8px;border-bottom:1px solid var(--border);}
+.report-person-head{font-size:14px;font-weight:600;color:var(--accent);margin-bottom:4px;font-family:var(--mono);}
+.report-week-meta{font-size:12px;color:var(--muted);margin-bottom:10px;font-family:var(--mono);}
+.report-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:8px;}
+.report-table th{text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:var(--mono);font-weight:400;padding:6px 8px;border-bottom:1px solid var(--border);}
 .report-table td{padding:8px 8px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;}
 .report-table tr:last-child td{border-bottom:none;}
 .report-num-neg{font-family:var(--mono);color:var(--danger);font-weight:600;}
 .report-num-pos{font-family:var(--mono);color:var(--safe);font-weight:600;}
 .report-zero{font-family:var(--mono);color:var(--dim);}
-.report-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.report-sub{font-size:12px;color:var(--muted);margin-top:2px;}
 .report-net{display:inline-block;font-family:var(--mono);font-size:13px;font-weight:600;padding:2px 8px;border-radius:6px;margin-top:4px;}
 .report-net.pos{background:rgba(106,177,135,0.15);color:var(--safe);}
 .report-net.neg{background:rgba(224,96,96,0.12);color:var(--danger);}
@@ -179,14 +194,14 @@ body{display:flex;flex-direction:column;}
 .modal-overlay.hidden{display:none;}
 .modal{background:var(--surface);border-radius:var(--radius) var(--radius) 0 0;padding:18px;width:100%;max-width:480px;border-top:1px solid var(--border2);}
 .modal h3{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:3px;}
-.modal p{font-size:12px;color:var(--muted);margin-bottom:12px;}
+.modal p{font-size:13px;color:var(--muted);margin-bottom:12px;}
 .modal textarea{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:9px 11px;font-size:14px;font-family:var(--sans);color:var(--text);outline:none;resize:none;min-height:70px;}
 .modal-actions{display:flex;gap:8px;margin-top:12px;}
 .btn-primary{flex:1;background:var(--accent);border:none;border-radius:var(--radius-sm);padding:11px;font-size:14px;font-weight:600;color:#0f0f0f;cursor:pointer;}
 .btn-secondary{flex:1;background:none;border:1px solid var(--border2);border-radius:var(--radius-sm);padding:11px;font-size:14px;color:var(--muted);cursor:pointer;}
 
 /* Legal */
-.legal-footer{display:flex;justify-content:center;align-items:center;gap:8px;margin:22px 0 6px;font-size:11px;font-family:var(--mono);color:var(--dim);}
+.legal-footer{display:flex;justify-content:center;align-items:center;gap:8px;margin:22px 0 6px;font-size:12px;font-family:var(--mono);color:var(--muted);}
 .legal-footer a,.legal-links a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border2);}
 .legal-footer a:active,.legal-links a:active{color:var(--accent);border-color:var(--accent);}
 .legal-modal p{line-height:1.55;}
@@ -237,9 +252,10 @@ body{display:flex;flex-direction:column;}
     </div>
     <div id="main-cats-home"></div>
     <div class="section-head" style="margin-top:8px">Shared Good Behavior Categories</div>
-    <div class="add-bar" style="margin-bottom:10px">
+    <div class="add-details-form home-form">
       <input type="text" id="good-cat-input" placeholder="Add good behavior (e.g. Helped a classmate)…" maxlength="40"/>
-      <button onclick="addGoodCat()" style="background:var(--safe)"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+      <input type="text" id="good-reward-input" placeholder="Reward (optional, e.g. Ice cream)" maxlength="80"/>
+      <button class="btn-add-good" onclick="addGoodCat()"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
     </div>
     <div id="good-cats-home"></div>
     <div class="legal-footer">
@@ -331,6 +347,7 @@ body{display:flex;flex-direction:column;}
 <div class="modal-overlay hidden" id="note-modal">
   <div class="modal">
     <h3 id="modal-title">Log infraction</h3>
+    <div id="modal-association" class="association consequence" style="display:none"></div>
     <p>Optional: add a note about this incident</p>
     <textarea id="modal-note" placeholder="What happened? (optional)"></textarea>
     <div class="modal-actions">
@@ -371,9 +388,9 @@ window.addEventListener('appinstalled',()=>document.getElementById('install-bann
 function dismissBanner(){document.getElementById('install-banner').style.display='none';}
 
 // ── DATA ──
-// mainCats: [{id,name,subs:[{id,name}]}]
-// goodCats: [{id,name}]
-// logs: [{id,personId,type:'neg'|'pos'|'quick-pos',mainCatId,subId,catName,subName,note,ts}]
+// mainCats: [{id,name,subs:[{id,name,consequence}]}]
+// goodCats: [{id,name,reward}]
+// logs: [{id,personId,type:'neg'|'pos'|'quick-pos',mainCatId,subId,catName,subName,note,association,ts}]
 // counts: {personId:{neg:{subId:n},pos:{catId:n},quickPos:n}}
 // profileNotes: {personId:string}
 let people=[],mainCats=[],goodCats=[],logs=[],counts={},profileNotes={};
@@ -486,13 +503,20 @@ function renderHomeCats(){
       </div>
       ${expandedHomeCats[mc.id]?`<div class="sub-list">
         ${mc.subs.map(sub=>`<div class="sub-item">
-          <div><div class="sub-name">${esc(sub.name)}</div></div>
-          <button class="btn-sm-del" onclick="deleteSub('${mc.id}','${sub.id}')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
-          </button>
+          <div class="item-copy">
+            <div class="sub-name">${esc(sub.name)}</div>
+            <div class="association ${sub.consequence?'consequence':'empty'}">${sub.consequence?'Consequence: '+esc(sub.consequence):'No consequence assigned'}</div>
+          </div>
+          <div class="item-actions">
+            <button class="btn-edit-assoc" onclick="editSubConsequence('${mc.id}','${sub.id}')">Edit</button>
+            <button class="btn-sm-del" onclick="deleteSub('${mc.id}','${sub.id}')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+            </button>
+          </div>
         </div>`).join('')}
-        <div class="add-sub-form">
+        <div class="add-details-form">
           <input type="text" placeholder="Add sub-behavior…" maxlength="40" id="sub-input-${mc.id}" onkeydown="if(event.key==='Enter')addSub('${mc.id}')"/>
+          <input type="text" placeholder="Consequence / task (optional)" maxlength="80" id="sub-consequence-${mc.id}" onkeydown="if(event.key==='Enter')addSub('${mc.id}')"/>
           <button class="btn-add-sub" onclick="addSub('${mc.id}')"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
         </div>
       </div>`:''}
@@ -505,10 +529,16 @@ function renderHomeGoodCats(){
   if(!goodCats.length){el.innerHTML=`<div class="empty-state" style="padding:14px 0"><div class="icon" style="font-size:24px">⭐</div><p>No good behavior categories yet.</p></div>`;return;}
   el.innerHTML=goodCats.map(gc=>`<div class="main-cat" style="margin-bottom:8px;border-color:rgba(106,177,135,0.2)">
     <div class="main-cat-header" style="cursor:default">
-      <div class="main-cat-info"><div class="main-cat-name" style="color:var(--safe)">${esc(gc.name)}</div></div>
-      <button class="main-cat-del" onclick="deleteGoodCat('${gc.id}')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
-      </button>
+      <div class="main-cat-info">
+        <div class="main-cat-name" style="color:var(--safe)">${esc(gc.name)}</div>
+        <div class="association ${gc.reward?'reward':'empty'}">${gc.reward?'Reward: '+esc(gc.reward):'No reward assigned'}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-edit-assoc" onclick="editGoodReward('${gc.id}')">Edit</button>
+        <button class="main-cat-del" onclick="deleteGoodCat('${gc.id}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+        </button>
+      </div>
     </div>
   </div>`).join('');
 }
@@ -550,11 +580,14 @@ function renderGoodSection(){
     goodCats.forEach((gc,i)=>{
       const cnt=getPosCount(pid,gc.id);
       html+=`<div class="good-item" id="good-item-${i}">
-        <div class="good-name">${esc(gc.name)}</div>
+        <div class="item-copy">
+          <div class="good-name">${esc(gc.name)}</div>
+          ${gc.reward?`<div class="association reward">Reward: ${esc(gc.reward)}</div>`:''}
+        </div>
         <div class="sub-controls">
           <button class="btn-sm" onclick="decrementGood('${gc.id}')">−</button>
           <span class="good-count">${cnt}</span>
-          <button class="btn-sm good-plus" onclick="logGood('${gc.id}','${esc(gc.name)}',${i})">+</button>
+          <button class="btn-sm good-plus" onclick="logGood('${gc.id}',${i})">+</button>
         </div>
       </div>`;
     });
@@ -588,12 +621,13 @@ function renderBehaviors(){
           return `<div class="sub-item" id="si-${mi}-${si}">
             <div style="flex:1;min-width:0">
               <div class="sub-name">${esc(sub.name)}</div>
+              ${sub.consequence?`<div class="association consequence">Consequence: ${esc(sub.consequence)}</div>`:''}
               <div class="sub-last">${last?fmtDate(last.ts):'never'}</div>
             </div>
             <div class="sub-controls">
               <button class="btn-sm" onclick="decrementSub('${mc.id}','${sub.id}')">−</button>
               <span class="sub-count">${cnt}</span>
-              <button class="btn-sm plus" onclick="promptNegLog('${mc.id}','${esc(mc.name)}','${sub.id}','${esc(sub.name)}',${mi},${si})">+</button>
+              <button class="btn-sm plus" onclick="promptNegLog('${mc.id}','${sub.id}',${mi},${si})">+</button>
             </div>
           </div>`;
         }).join(''):'<div style="padding:10px 14px 10px 32px;font-size:12px;color:var(--dim)">No sub-behaviors yet. Go back to add some.</div>'}
@@ -618,6 +652,7 @@ function renderLog(){
         <div><span class="log-cat-name">${esc(l.catName)}${sub}</span><span class="log-badge ${isPos?'pos':'neg'}">${isPos?'+':'-'}1</span></div>
         <span class="log-ts">${fmtDate(l.ts)}</span>
       </div>
+      ${l.association?`<div class="log-association">${isPos?'🎁 Reward':'↳ Consequence'}: ${esc(l.association)}</div>`:''}
       ${l.note?`<div class="log-note">📝 ${esc(l.note)}</div>`:''}
     </div>`;
   }).join('')}</div>`;
@@ -659,9 +694,16 @@ function saveProfileNote(){
 
 // ── NOTE MODAL ──
 let pendingLog=null;
-function promptNegLog(mainCatId,mainCatName,subId,subName,mi,si){
-  pendingLog={mainCatId,mainCatName,subId,subName,mi,si};
+function promptNegLog(mainCatId,subId,mi,si){
+  const mainCat=mainCats.find(c=>c.id===mainCatId);
+  const sub=mainCat?.subs.find(s=>s.id===subId);
+  if(!mainCat||!sub)return;
+  const mainCatName=mainCat.name,subName=sub.name,association=sub.consequence||'';
+  pendingLog={mainCatId,mainCatName,subId,subName,association,mi,si};
   document.getElementById('modal-title').textContent=mainCatName+' › '+subName;
+  const associationEl=document.getElementById('modal-association');
+  associationEl.textContent=association?'Consequence: '+association:'';
+  associationEl.style.display=association?'block':'none';
   document.getElementById('modal-note').value='';
   document.getElementById('note-modal').classList.remove('hidden');
   setTimeout(()=>document.getElementById('modal-note').focus(),100);
@@ -672,11 +714,11 @@ function closeModal(doLog){
   if(pendingLog) commitNeg(pendingLog,doLog?note:'');
   pendingLog=null;
 }
-function commitNeg({mainCatId,mainCatName,subId,subName,mi,si},note){
+function commitNeg({mainCatId,mainCatName,subId,subName,association,mi,si},note){
   if(!activePerson)return;
   const pid=activePerson.id; ensureCounts(pid);
   counts[pid].neg[subId]=(counts[pid].neg[subId]||0)+1;
-  logs.push({id:uid(),personId:pid,type:'neg',mainCatId,subId,catName:mainCatName,subName,note,ts:new Date().toISOString()});
+  logs.push({id:uid(),personId:pid,type:'neg',mainCatId,subId,catName:mainCatName,subName,note,association,ts:new Date().toISOString()});
   saveData(); renderPerson();
   // flash sub item
   const el=document.getElementById(`si-${mi}-${si}`);
@@ -702,15 +744,17 @@ function logQuickPos(){
   logs.push({id:uid(),personId:pid,type:'quick-pos',catName:'Quick Positive',note:'',ts:new Date().toISOString()});
   saveData();renderPerson();showToast('Good behavior +1','good');
 }
-function logGood(catId,catName,idx){
+function logGood(catId,idx){
   if(!activePerson)return;
+  const goodCat=goodCats.find(g=>g.id===catId);if(!goodCat)return;
+  const catName=goodCat.name,association=goodCat.reward||'';
   const pid=activePerson.id; ensureCounts(pid);
   counts[pid].pos[catId]=(counts[pid].pos[catId]||0)+1;
-  logs.push({id:uid(),personId:pid,type:'pos',catName,note:'',ts:new Date().toISOString()});
+  logs.push({id:uid(),personId:pid,type:'pos',catName,note:'',association,ts:new Date().toISOString()});
   saveData();renderPerson();
   const el=document.getElementById('good-item-'+idx);
   if(el){el.style.background='rgba(106,177,135,0.1)';setTimeout(()=>el.style.background='',400);}
-  showToast(catName+' +1','good');
+  showToast(association?'Reward: '+association:catName+' +1','good');
 }
 function decrementGood(catId){
   if(!activePerson)return;
@@ -830,15 +874,25 @@ function deleteMainCat(id){
 }
 function addSub(mainCatId){
   const inp=document.getElementById('sub-input-'+mainCatId);
+  const consequenceInp=document.getElementById('sub-consequence-'+mainCatId);
   if(!inp)return;
   const name=inp.value.trim();if(!name)return;
+  const consequence=consequenceInp?.value.trim()||'';
   const mc=mainCats.find(x=>x.id===mainCatId);if(!mc)return;
   if(mc.subs.find(s=>s.name.toLowerCase()===name.toLowerCase())){showToast('Already exists');inp.select();return;}
-  mc.subs.push({id:uid(),name});
+  mc.subs.push({id:uid(),name,consequence});
   saveData();renderHomeCats();
   // re-focus
   setTimeout(()=>{const ni=document.getElementById('sub-input-'+mainCatId);if(ni){ni.value='';ni.focus();}},50);
   showToast('Sub-behavior added','accent');
+}
+function editSubConsequence(mainCatId,subId){
+  const mc=mainCats.find(x=>x.id===mainCatId);
+  const sub=mc?.subs.find(x=>x.id===subId);if(!sub)return;
+  const value=prompt(`Consequence / task for "${sub.name}" (leave blank for none):`,sub.consequence||'');
+  if(value===null)return;
+  sub.consequence=value.trim();
+  saveData();renderHomeCats();showToast(sub.consequence?'Consequence saved':'Consequence removed','accent');
 }
 function deleteSub(mainCatId,subId){
   const mc=mainCats.find(x=>x.id===mainCatId);if(!mc)return;
@@ -851,9 +905,18 @@ function deleteSub(mainCatId,subId){
 }
 function addGoodCat(){
   const inp=document.getElementById('good-cat-input');
+  const rewardInp=document.getElementById('good-reward-input');
   const name=inp.value.trim();if(!name)return;
+  const reward=rewardInp.value.trim();
   if(goodCats.find(c=>c.name.toLowerCase()===name.toLowerCase())){showToast('Already exists');inp.select();return;}
-  goodCats.push({id:uid(),name});saveData();renderHomeGoodCats();inp.value='';showToast('Good behavior added','good');
+  goodCats.push({id:uid(),name,reward});saveData();renderHomeGoodCats();inp.value='';rewardInp.value='';showToast('Good behavior added','good');
+}
+function editGoodReward(id){
+  const gc=goodCats.find(x=>x.id===id);if(!gc)return;
+  const value=prompt(`Reward for "${gc.name}" (leave blank for none):`,gc.reward||'');
+  if(value===null)return;
+  gc.reward=value.trim();
+  saveData();renderHomeGoodCats();showToast(gc.reward?'Reward saved':'Reward removed','good');
 }
 function deleteGoodCat(id){
   const gc=goodCats.find(x=>x.id===id);
@@ -876,6 +939,7 @@ function showToast(msg,type){
 document.getElementById('person-input').addEventListener('keydown',e=>{if(e.key==='Enter')addPerson();});
 document.getElementById('main-cat-input').addEventListener('keydown',e=>{if(e.key==='Enter')addMainCat();});
 document.getElementById('good-cat-input').addEventListener('keydown',e=>{if(e.key==='Enter')addGoodCat();});
+document.getElementById('good-reward-input').addEventListener('keydown',e=>{if(e.key==='Enter')addGoodCat();});
 document.getElementById('modal-note').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();closeModal(true);}});
 document.getElementById('note-modal').addEventListener('click',function(e){if(e.target===this)closeModal(false);});
 
