@@ -1,5 +1,11 @@
-const CACHE = 'mtk-v2';
-const ASSETS = ['/index.html', '/manifest.json', '/icon.svg'];
+const CACHE = 'mtk-v3';
+const BASE = '/mistake-tracker/';
+const ASSETS = [
+  BASE,
+  BASE + 'index.html',
+  BASE + 'manifest.json',
+  BASE + 'icon.svg'
+];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
