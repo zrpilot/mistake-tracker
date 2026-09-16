@@ -1,12 +1,12 @@
 {
   "name": "Mistake Tracker",
   "short_name": "Tracker",
-  "description": "Track behavioral mistakes per person with timestamps",
+  "description": "Track positive and unwanted behaviors with optional rewards and consequences",
   "start_url": "/mistake-tracker/index.html",
   "scope": "/mistake-tracker/",
   "display": "standalone",
-  "background_color": "#0f0f0f",
-  "theme_color": "#0f0f0f",
+  "background_color": "#141414",
+  "theme_color": "#141414",
   "orientation": "portrait",
   "icons": [
     {
