@@ -23,11 +23,11 @@ Mistake Tracker does not transmit behavior records, names, notes, or other track
 
 The developer does not operate a server or database containing this information and cannot retrieve information stored locally on a user's device.
 
-## Third-Party Resources
+## Third-Party Data Collection
 
-The current version of Mistake Tracker may retrieve font resources from Google Fonts. As with ordinary web requests, the provider of those resources may receive technical information such as the user's IP address, browser information, and request details.
+Mistake Tracker does not intentionally send user-entered tracking data to third-party analytics, advertising, or cloud-storage services.
 
-User-entered Mistake Tracker records are not intentionally transmitted to Google Fonts.
+Normal requests needed to load the app from its hosting provider may expose ordinary technical information such as an IP address and browser request details to that hosting provider, as occurs when visiting most websites.
 
 ## Security and Local Storage
 
