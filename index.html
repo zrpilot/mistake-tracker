@@ -7,14 +7,14 @@
 <meta name="theme-color" content="#0f0f0f">
 <link rel="manifest" href="manifest.json">
 <title>Mistake Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:#0f0f0f;--surface:#1a1a1a;--surface2:#242424;
   --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.16);
   --text:#f0ede8;--muted:#888;--dim:#555;
   --accent:#e8c97a;--danger:#e06060;--safe:#6ab187;--safe2:rgba(106,177,135,0.15);
-  --mono:'DM Mono',monospace;--sans:'Sora',sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --radius:14px;--radius-sm:8px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -185,6 +185,13 @@ body{display:flex;flex-direction:column;}
 .btn-primary{flex:1;background:var(--accent);border:none;border-radius:var(--radius-sm);padding:11px;font-size:14px;font-weight:600;color:#0f0f0f;cursor:pointer;}
 .btn-secondary{flex:1;background:none;border:1px solid var(--border2);border-radius:var(--radius-sm);padding:11px;font-size:14px;color:var(--muted);cursor:pointer;}
 
+/* Legal */
+.legal-footer{display:flex;justify-content:center;align-items:center;gap:8px;margin:22px 0 6px;font-size:11px;font-family:var(--mono);color:var(--dim);}
+.legal-footer a,.legal-links a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border2);}
+.legal-footer a:active,.legal-links a:active{color:var(--accent);border-color:var(--accent);}
+.legal-modal p{line-height:1.55;}
+.legal-links{display:flex;gap:14px;margin:2px 0 4px;font-size:12px;font-family:var(--mono);}
+
 /* Install */
 .install-banner{background:rgba(232,201,122,0.1);border:1px solid rgba(232,201,122,0.3);border-radius:var(--radius);padding:11px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
 .install-banner p{font-size:13px;color:var(--accent);flex:1;}
@@ -235,6 +242,11 @@ body{display:flex;flex-direction:column;}
       <button onclick="addGoodCat()" style="background:var(--safe)"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
     </div>
     <div id="good-cats-home"></div>
+    <div class="legal-footer">
+      <a href="https://github.com/zrpilot/mistake-tracker/blob/main/PRIVACY.md" target="_blank" rel="noopener noreferrer">Privacy</a>
+      <span>•</span>
+      <a href="https://github.com/zrpilot/mistake-tracker/blob/main/TERMS.md" target="_blank" rel="noopener noreferrer">Terms</a>
+    </div>
   </div>
 </div>
 
@@ -298,6 +310,23 @@ body{display:flex;flex-direction:column;}
   <div class="main" id="report-body"></div>
 </div>
 
+<!-- FIRST-RUN LEGAL NOTICE -->
+<div class="modal-overlay hidden" id="consent-modal" role="dialog" aria-modal="true" aria-labelledby="consent-title">
+  <div class="modal legal-modal">
+    <h3 id="consent-title">Adults 18+ / Consensual Use</h3>
+    <p>Mistake Tracker is intended for consensual use between adults age 18 or older. Only record information about another person with any knowledge or consent required by applicable law.</p>
+    <p>Tracking data is stored locally in this browser/device. It is not sent to or backed up by the developer, and local browser storage is not encrypted by this app.</p>
+    <p>By continuing, you acknowledge the Terms of Use and Privacy Policy and accept responsibility for lawful use of the app.</p>
+    <div class="legal-links">
+      <a href="https://github.com/zrpilot/mistake-tracker/blob/main/PRIVACY.md" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+      <a href="https://github.com/zrpilot/mistake-tracker/blob/main/TERMS.md" target="_blank" rel="noopener noreferrer">Terms of Use</a>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="acceptLegalNotice()">I Understand — Continue</button>
+    </div>
+  </div>
+</div>
+
 <!-- NOTE MODAL -->
 <div class="modal-overlay hidden" id="note-modal">
   <div class="modal">
@@ -315,6 +344,18 @@ body{display:flex;flex-direction:column;}
 
 <script>
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+// First-run legal acknowledgement
+const LEGAL_NOTICE_KEY='mtk_legal_notice_2026_09_16';
+function showFirstRunNotice(){
+  try{
+    if(localStorage.getItem(LEGAL_NOTICE_KEY)!=='accepted') document.getElementById('consent-modal').classList.remove('hidden');
+  }catch(e){document.getElementById('consent-modal').classList.remove('hidden');}
+}
+function acceptLegalNotice(){
+  try{localStorage.setItem(LEGAL_NOTICE_KEY,'accepted');}catch(e){}
+  document.getElementById('consent-modal').classList.add('hidden');
+}
 
 // PWA install
 let deferredPrompt=null;
@@ -684,7 +725,10 @@ function decrementGood(catId){
 // ── RESET ──
 function showResetMenu(){
   if(!activePerson)return;
-  const choice=confirm(`Reset options for ${activePerson.name}:\n\nOK = Reset THIS person's counts\nCancel = Option to reset EVERYONE`);
+  const choice=confirm(`Reset options for ${activePerson.name}:\
+\
+OK = Reset THIS person's counts\
+Cancel = Option to reset EVERYONE`);
   if(choice){
     if(confirm(`Reset all counts for ${activePerson.name}?`)){
       counts[activePerson.id]={neg:{},pos:{},quickPos:0};
@@ -835,7 +879,7 @@ document.getElementById('good-cat-input').addEventListener('keydown',e=>{if(e.ke
 document.getElementById('modal-note').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();closeModal(true);}});
 document.getElementById('note-modal').addEventListener('click',function(e){if(e.target===this)closeModal(false);});
 
-loadData();updateDates();renderHome();
+loadData();updateDates();renderHome();showFirstRunNotice();
 setInterval(updateDates,60000);
 </script>
 </body>
